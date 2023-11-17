@@ -1,11 +1,17 @@
-# 使用官方的 Python 基础镜像
-FROM python:3.8
+# Use a minimal base image
+FROM alpine:latest
 
-# 在容器中创建一个工作目录
-WORKDIR /app
+# Install Apache HTTP Server
+RUN apk --no-cache add apache2
 
-# 在工作目录下创建一个 Python 脚本文件
-RUN echo 'print("Hello World")' > hello.py
+# Configure Apache to run in the foreground
+RUN echo "ServerName localhost" >> /etc/apache2/httpd.conf
 
-# 定义容器启动命令
-CMD ["python", "hello.py"]
+# Create a simple HTML file with "Hello"
+RUN echo "<html><body><h1>Hello</h1></body></html>" > /var/www/localhost/htdocs/index.html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Apache HTTP Server
+CMD ["httpd", "-D", "FOREGROUND"]
