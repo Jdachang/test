@@ -8,7 +8,7 @@ RUN apk --no-cache add apache2
 RUN echo "ServerName localhost" >> /etc/apache2/httpd.conf
 
 # Create a simple HTML file with "Hello"
-RUN echo "<html><body><h1>Hello</h1></body></html>" > /var/www/localhost/htdocs/index.html
+RUN echo "<html><body><h1>Hello,world!</h1></body></html>" > /var/www/localhost/htdocs/index.html
 
 # Expose port 80
 EXPOSE 80
